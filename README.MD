@@ -41,6 +41,6 @@
 ### Verify pacts
 `./gradlew :example-provider:pactVerify`
 
-### More playground (a bit dated)
+### More playgrounds (a bit dated)
 - https://github.com/Mikuu/Pact-JVM-Example
 - https://github.com/DiUS/pact-workshop-jvm
