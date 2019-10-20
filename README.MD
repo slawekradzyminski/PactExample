@@ -26,6 +26,8 @@
 
 - [localhost:9292](http://localhost:9292)
 
+![alt text](screenshots/pactbroker.png)
+
 ### Build
 `./gradlew :example-consumer-ronaldo:build`
 
