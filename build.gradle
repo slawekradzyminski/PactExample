@@ -1,0 +1,103 @@
+import com.wiredforcode.gradle.spawn.*
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'http://dl.bintray.com/vermeulen-mp/gradle-plugins' }
+        maven { url 'https://plugins.gradle.org/m2/' }
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.2.0.RELEASE")
+        classpath("au.com.dius:pact-jvm-provider-gradle:4.0.1")
+        classpath("com.wiredforcode:gradle-spawn-plugin:0.8.1")
+        classpath("org.ajoberstar.grgit:grgit-gradle:4.0.0-rc.1")
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'au.com.dius.pact'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'com.wiredforcode.spawn'
+    apply plugin: 'org.ajoberstar.grgit'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+ext {
+    gitBranch = grgit.branch.current().name
+    gitAbbRevision = grgit.head().abbreviatedId
+}
+
+subprojects {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    dependencies {
+        compileOnly("org.projectlombok:lombok:1.18.10")
+        annotationProcessor("org.projectlombok:lombok:1.18.10")
+
+        compile("org.springframework.boot:spring-boot-starter-web")
+        compile("org.springframework.boot:spring-boot-devtools")
+        compile("org.springframework.boot:spring-boot-starter-jetty")
+        compile("org.springframework.boot:spring-boot-starter-actuator")
+        compile("org.json:json:20190722")
+
+        testCompile('org.springframework.boot:spring-boot-starter-test')
+        testCompile("junit:junit")
+        testCompile("au.com.dius:pact-jvm-consumer-junit:4.0.1")
+        testCompile("au.com.dius:pact-jvm-consumer-java8:4.0.1")
+        testCompile("au.com.dius:pact-jvm-provider-spring:4.0.1")
+    }
+}
+
+project(':example-consumer-messi') {
+    pact {
+        publish {
+            version = gitBranch + '-' + gitAbbRevision
+            pactDirectory = "${buildDir}/pacts"
+            pactBrokerUrl = "http://localhost:9292"
+        }
+    }
+}
+
+project(':example-consumer-ronaldo') {
+    pact {
+        publish {
+            version = gitBranch + '-' + gitAbbRevision
+            pactDirectory = "${buildDir}/pacts"
+            pactBrokerUrl = "http://localhost:9292"
+        }
+    }
+}
+
+project(':example-provider') {
+    task startProvider(type: SpawnProcessTask, dependsOn: 'assemble') {
+        command "java -Dspring.profiles.active=pact -jar ${buildDir}/libs/example-provider.jar"
+        ready 'Started ContractProvider'
+    }
+
+    task stopProvider(type: KillProcessTask) {
+    }
+
+    pact {
+        serviceProviders {
+            ExampleProvider {
+                providerVersion = { gitBranch + '-' + gitAbbRevision }
+                protocol = 'http'
+                host = 'localhost'
+                port = 8080
+                path = '/'
+                stateChangeUrl = url('http://localhost:8080/pactStateChange')
+                startProviderTask = startProvider
+                hasPactsFromPactBroker("http://localhost:9292")
+                terminateProviderTask = stopProvider
+            }
+        }
+    }
+}
