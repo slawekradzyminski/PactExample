@@ -16,7 +16,15 @@
 - [Reflectoring blog](https://reflectoring.io/cdc-pact-messages/)
 
 ### Setup Pact Broker via Docker compose
-[Packt Broker Docker](https://github.com/pact-foundation/pact-broker-docker)
+[Full guide](https://github.com/pact-foundation/pact-broker-docker)
+
+`git clone https://github.com/pact-foundation/pact-broker-docker.git`
+
+`cd pact-broker-docker`
+
+`docker-compose up`
+
+- [localhost:9292](http://localhost:9292)
 
 ### Build
 `./gradlew :example-consumer-ronaldo:build`
