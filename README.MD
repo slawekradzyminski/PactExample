@@ -2,6 +2,7 @@
 - [Testing micro services - the sane way](https://medium.com/@copyconstruct/testing-microservices-the-sane-way-9bb31d158c16)
 - [Fowler - customer driven contract tests](https://martinfowler.com/articles/consumerDrivenContracts.html)
 - [7 reasons for consumer driven contracts](https://reflectoring.io/7-reasons-for-consumer-driven-contracts/)
+- [YouTube talk](https://www.youtube.com/watch?v=nQ0UGY2-YYI)
 
 ##### Contract test great introduction
 - [Introduction](https://kreuzwerker.de/post/introduction-to-consumer-driven-contract-testing)
