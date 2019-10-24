@@ -32,6 +32,25 @@ allprojects {
 ext {
     gitBranch = grgit.branch.current().name
     gitAbbRevision = grgit.head().abbreviatedId
+    pactUrl = "http://localhost:9292"
+    requestVerification = false
+}
+
+task setupPactBroker(type: Exec) {
+    commandLine "pactbroker/runPactBroker.sh"
+}
+
+task createProvider {
+    doLast {
+        def post = new URL("${pactUrl}/pacticipants").openConnection()
+        def message = '{"name":"ExampleProvider"}'
+        post.setRequestMethod("POST")
+        post.setDoOutput(true)
+        post.setRequestProperty("Content-Type", "application/json")
+        post.getOutputStream().write(message.getBytes("UTF-8"))
+        String postRC = post.getResponseCode()
+        println(postRC)
+    }
 }
 
 subprojects {
@@ -61,7 +80,7 @@ project(':example-consumer-messi') {
         publish {
             version = gitBranch + '-' + gitAbbRevision
             pactDirectory = "${buildDir}/pacts"
-            pactBrokerUrl = "http://localhost:9292"
+            pactBrokerUrl = pactUrl
         }
     }
 }
@@ -71,7 +90,7 @@ project(':example-consumer-ronaldo') {
         publish {
             version = gitBranch + '-' + gitAbbRevision
             pactDirectory = "${buildDir}/pacts"
-            pactBrokerUrl = "http://localhost:9292"
+            pactBrokerUrl = pactUrl
         }
     }
 }
@@ -95,7 +114,12 @@ project(':example-provider') {
                 path = '/'
                 stateChangeUrl = url('http://localhost:8080/pactStateChange')
                 startProviderTask = startProvider
-                hasPactsFromPactBroker("http://localhost:9292")
+                // workaround to disable checking url availability on sync phase
+                // See more on https://github.com/DiUS/pact-jvm/tree/master/provider/pact-jvm-provider-gradle
+                // Should be fixed in later releases
+                if (requestVerification) {
+                    hasPactsFromPactBroker(pactUrl)
+                }
                 terminateProviderTask = stopProvider
             }
         }

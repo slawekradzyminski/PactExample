@@ -2,4 +2,5 @@ build/
 .idea/
 .gradle/
 *.iml
+.pid.lock
 

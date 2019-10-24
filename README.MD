@@ -1,4 +1,6 @@
-### Theory
+![alt text](screenshots/pactbroker.png)
+
+## Theory
 - [Testing micro services - the sane way](https://medium.com/@copyconstruct/testing-microservices-the-sane-way-9bb31d158c16)
 - [Fowler - customer driven contract tests](https://martinfowler.com/articles/consumerDrivenContracts.html)
 - [7 reasons for consumer driven contracts](https://reflectoring.io/7-reasons-for-consumer-driven-contracts/)
@@ -16,7 +18,19 @@
 - [Pact blog 2](https://dius.com.au/2018/10/01/contract-testing-serverless-and-asynchronous-applications---part-2/)
 - [Reflectoring blog](https://reflectoring.io/cdc-pact-messages/)
 
-### Setup Pact Broker via Docker compose
+## Practice
+
+### 1a. Setup Pact Broker automatically
+
+`./gradlew setupPactBroker`
+
+- [localhost:9292](http://localhost:9292)
+
+Create provider:
+
+`./gradlew createProvider`
+
+### 1b. Setup Pact Broker manually
 [Full guide](https://github.com/pact-foundation/pact-broker-docker)
 
 `git clone https://github.com/pact-foundation/pact-broker-docker.git`
@@ -27,22 +41,32 @@
 
 - [localhost:9292](http://localhost:9292)
 
-![alt text](screenshots/pactbroker.png)
+Create provider:
 
-### Build
+`curl -v -XPOST -H "Content-Type: application/json" -d "{\"name\": \"ExampleProvider\"}" http://localhost:9292/pacticipants`
+
+### 2. Build and Publish Pacts
 `./gradlew :example-consumer-ronaldo:build`
+
+`./gradlew :example-consumer-ronaldo:pactPublish`
 
 `./gradlew :example-consumer-messi:build`
 
-`./gradlew :example-provider:build`
-
-### Publish pacts
-`./gradlew :example-consumer-ronaldo:pactPublish`
-
 `./gradlew :example-consumer-messi:pactPublish`
 
-### Verify pacts
-`./gradlew :example-provider:pactVerify`
+### 3. Verify pacts
+`./gradlew :example-provider:build`
+
+`./gradlew :example-provider:pactVerify -PrequestVerification=true`
+
+Publish results:
+
+`./gradlew :example-provider:pactVerify -PrequestVerification=true -Ppact.verifier.publishResults='true'`
+
+### 4. Cleanup
+
+- Kill task setupPactBroker
+- Kill dockers `./killDockers.sh`
 
 ### More playgrounds (a bit dated)
 - https://github.com/Mikuu/Pact-JVM-Example
