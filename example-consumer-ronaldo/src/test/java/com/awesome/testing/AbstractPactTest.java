@@ -10,8 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public abstract class AbstractPactTest extends ConsumerPactTest {
 
-    static final String PROVIDER_NAME = "ExampleProvider";
-    static final String CUSTOMER_NAME = "Ronaldo";
+    private static final String PROVIDER_NAME = "ExampleProvider";
+    private static final String CUSTOMER_NAME = "Ronaldo";
 
     @Autowired
     ProviderService providerService;

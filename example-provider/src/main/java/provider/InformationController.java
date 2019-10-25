@@ -1,7 +1,5 @@
 package provider;
 
-import java.util.HashMap;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -35,21 +33,13 @@ public class InformationController {
     }
 
     private void getRonaldoData() {
-        HashMap<String, String> contact = new HashMap<>();
-        contact.put("Email", "cristiano@ronaldo.com");
-        contact.put("Phone Number", "9090940");
         information.setNationality(Nationality.getNationality());
-        information.setContact(contact);
         information.setName("Cristiano Ronaldo");
         information.setSalary(80000);
     }
 
     private void getMessiData() {
-        HashMap<String, String> contact = new HashMap<>();
-        contact.put("Email", "leo@messi.com");
-        contact.put("Phone Number", "9090950");
         information.setNationality(Nationality.getNationality());
-        information.setContact(contact);
         information.setName("Leo Messi");
         information.setSalary(45000);
     }

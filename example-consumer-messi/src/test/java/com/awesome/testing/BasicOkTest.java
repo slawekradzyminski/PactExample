@@ -4,20 +4,17 @@ import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.PactTestExecutionContext;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.core.model.RequestResponsePact;
-import au.com.dius.pact.core.model.annotations.Pact;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.awesome.testing.InformationController.MESSI;
 import static io.pactfoundation.consumer.dsl.LambdaDsl.newJsonBody;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BasicOkTest extends AbstractPactTest {
 
     @Override
-    @Pact(provider = PROVIDER_NAME, consumer = CUSTOMER_NAME)
     public RequestResponsePact createPact(PactDslWithProvider builder) {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
@@ -32,13 +29,9 @@ public class BasicOkTest extends AbstractPactTest {
                 .headers(headers)
                 .status(200)
                 .body(newJsonBody((root) -> {
-                    root.numberType("salary");
+                    root.numberType("salary", 7500);
                     root.stringType("name", "Leo Messi");
                     root.stringType("nationality", "Argentina");
-                    root.object("contact", (contactObject) -> {
-                        contactObject.stringMatcher("Email", ".*@messi.com", "leo@messi.com");
-                        contactObject.stringType("Phone Number", "9090940");
-                    });
                 }).build())
                 .toPact();
     }
@@ -47,8 +40,8 @@ public class BasicOkTest extends AbstractPactTest {
     protected void runTest(MockServer mockServer, PactTestExecutionContext context) {
         providerService.overrideBackendUrl(mockServer.getUrl());
         Information information = providerService.getResponseForName(MESSI).getBody();
-        assertNotNull(information);
-        assertEquals(information.getName(), "Leo Messi");
+        assertThat(information).isNotNull();
+        assertThat(information.getName()).isEqualTo("Leo Messi");
     }
 
 }

@@ -23,9 +23,9 @@ public class InformationController {
     public ResponseEntity<?> messi() {
         Information information = providerService.getResponseForName(MESSI).getBody();
         String jsonString = new JSONObject()
-                .put("Name", information.getName())
-                .put("Email", information.getContact().get("Email"))
-                .put("PhoneNumber", information.getContact().get("Phone Number"))
+                .put("name", information.getName())
+                .put("salary", information.getSalary())
+                .put("nationality", information.getNationality())
                 .toString();
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)

@@ -24,8 +24,7 @@ public class InformationController {
         Information information = providerService.getResponseForName(RONALDO).getBody();
         String jsonString = new JSONObject()
                 .put("Name", information.getName())
-                .put("Email", information.getContact().get("Email"))
-                .put("PhoneNumber", information.getContact().get("Phone Number"))
+                .put("Salary", information.getSalary())
                 .put("Nationality", information.getNationality())
                 .toString();
         return ResponseEntity.ok()
