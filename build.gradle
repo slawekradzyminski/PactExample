@@ -8,10 +8,10 @@ buildscript {
     }
 
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.2.0.RELEASE")
-        classpath("au.com.dius:pact-jvm-provider-gradle:4.0.1")
-        classpath("com.wiredforcode:gradle-spawn-plugin:0.8.1")
-        classpath("org.ajoberstar.grgit:grgit-gradle:4.0.0-rc.1")
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.2.0.RELEASE'
+        classpath 'au.com.dius:pact-jvm-provider-gradle:4.0.1'
+        classpath 'com.wiredforcode:gradle-spawn-plugin:0.8.1'
+        classpath 'org.ajoberstar.grgit:grgit-gradle:4.0.0-rc.1'
     }
 }
 
@@ -56,24 +56,24 @@ task createProvider {
 subprojects {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
-
     dependencies {
-        compileOnly("org.projectlombok:lombok:1.18.10")
-        annotationProcessor("org.projectlombok:lombok:1.18.10")
+        compileOnly 'org.projectlombok:lombok:1.18.10'
+        annotationProcessor 'org.projectlombok:lombok:1.18.10'
 
-        compile("org.springframework.boot:spring-boot-starter-web")
-        compile("org.springframework.boot:spring-boot-devtools")
-        compile("org.springframework.boot:spring-boot-starter-jetty")
-        compile("org.springframework.boot:spring-boot-starter-actuator")
-        compile("org.json:json:20190722")
+        compile 'org.springframework.boot:spring-boot-starter-web'
+        compile 'org.springframework.boot:spring-boot-devtools'
+        compile 'org.springframework.boot:spring-boot-starter-jetty'
+        compile 'org.springframework.boot:spring-boot-starter-actuator'
+        compile 'org.json:json:20190722'
 
-        testCompile('org.springframework.boot:spring-boot-starter-test')
-        testCompile("junit:junit")
-        testCompile("au.com.dius:pact-jvm-consumer-junit:4.0.1")
-        testCompile("au.com.dius:pact-jvm-consumer-java8:4.0.1")
-        testCompile("au.com.dius:pact-jvm-provider-spring:4.0.1")
-        testCompile("org.assertj:assertj-core:3.11.1")
+        testCompile 'org.springframework.boot:spring-boot-starter-test'
+        testCompile 'junit:junit'
+        testCompile 'au.com.dius:pact-jvm-consumer-junit:4.0.1'
+        testCompile 'au.com.dius:pact-jvm-consumer-java8:4.0.1'
+        testCompile 'au.com.dius:pact-jvm-provider-spring:4.0.1'
+        testCompile 'org.assertj:assertj-core:3.13.2'
     }
+
 }
 
 project(':example-consumer-messi') {
