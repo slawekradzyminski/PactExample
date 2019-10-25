@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class InformationController {
 
+    public static final String MESSI = "Messi";
+
     private final ProviderService providerService;
 
     @Autowired
@@ -19,7 +21,7 @@ public class InformationController {
 
     @GetMapping("/")
     public ResponseEntity<?> messi() {
-        Information information = providerService.getInformation();
+        Information information = providerService.getResponseForName(MESSI).getBody();
         String jsonString = new JSONObject()
                 .put("Name", information.getName())
                 .put("Email", information.getContact().get("Email"))

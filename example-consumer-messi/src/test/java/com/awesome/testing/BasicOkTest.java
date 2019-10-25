@@ -3,39 +3,21 @@ package com.awesome.testing;
 import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.PactTestExecutionContext;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
-import au.com.dius.pact.consumer.junit.ConsumerPactTest;
 import au.com.dius.pact.core.model.RequestResponsePact;
 import au.com.dius.pact.core.model.annotations.Pact;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.awesome.testing.InformationController.MESSI;
 import static io.pactfoundation.consumer.dsl.LambdaDsl.newJsonBody;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class PactBaseConsumerTest extends ConsumerPactTest {
-
-    @Autowired
-    ProviderService providerService;
+public class BasicOkTest extends AbstractPactTest {
 
     @Override
-    protected String providerName() {
-        return "ExampleProvider";
-    }
-
-    @Override
-    protected String consumerName() {
-        return "Messi";
-    }
-
-    @Override
-    @Pact(provider = "ExampleProvider", consumer = "Messi")
+    @Pact(provider = PROVIDER_NAME, consumer = CUSTOMER_NAME)
     public RequestResponsePact createPact(PactDslWithProvider builder) {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
@@ -64,7 +46,8 @@ public class PactBaseConsumerTest extends ConsumerPactTest {
     @Override
     protected void runTest(MockServer mockServer, PactTestExecutionContext context) {
         providerService.overrideBackendUrl(mockServer.getUrl());
-        Information information = providerService.getInformation();
+        Information information = providerService.getResponseForName(MESSI).getBody();
+        assertNotNull(information);
         assertEquals(information.getName(), "Leo Messi");
     }
 

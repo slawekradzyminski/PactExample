@@ -72,6 +72,7 @@ subprojects {
         testCompile("au.com.dius:pact-jvm-consumer-junit:4.0.1")
         testCompile("au.com.dius:pact-jvm-consumer-java8:4.0.1")
         testCompile("au.com.dius:pact-jvm-provider-spring:4.0.1")
+        testCompile("org.assertj:assertj-core:3.11.1")
     }
 }
 

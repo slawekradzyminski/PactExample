@@ -3,38 +3,21 @@ package com.awesome.testing;
 import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.PactTestExecutionContext;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
-import au.com.dius.pact.consumer.junit.ConsumerPactTest;
 import au.com.dius.pact.core.model.RequestResponsePact;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import au.com.dius.pact.core.model.annotations.Pact;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.awesome.testing.InformationController.RONALDO;
 import static io.pactfoundation.consumer.dsl.LambdaDsl.newJsonBody;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class EmptyNationalityPactTest extends ConsumerPactTest {
-
-    @Autowired
-    ProviderService providerService;
+public class EmptyNationalityPactTest extends AbstractPactTest {
 
     @Override
-    protected String providerName() {
-        return "ExampleProvider";
-    }
-
-    @Override
-    protected String consumerName() {
-        return "Ronaldo";
-    }
-
-    @Override
+    @Pact(provider = PROVIDER_NAME, consumer = CUSTOMER_NAME)
     protected RequestResponsePact createPact(PactDslWithProvider builder) {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
@@ -63,7 +46,8 @@ public class EmptyNationalityPactTest extends ConsumerPactTest {
     @Override
     protected void runTest(MockServer mockServer, PactTestExecutionContext context) {
         providerService.overrideBackendUrl(mockServer.getUrl());
-        Information information = providerService.getInformation();
+        Information information = providerService.getResponseForName(RONALDO).getBody();
+        assertNotNull(information);
         assertEquals(information.getNationality(), "Portugal");
     }
 }
