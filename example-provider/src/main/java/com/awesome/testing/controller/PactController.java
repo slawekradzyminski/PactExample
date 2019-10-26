@@ -1,12 +1,12 @@
-package provider.controller;
+package com.awesome.testing.controller;
 
+import com.awesome.testing.service.InformationService;
+import com.awesome.testing.state.ContractState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import provider.service.InformationService;
-import provider.state.ContractState;
 
 import java.util.Map;
 

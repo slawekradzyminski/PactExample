@@ -1,9 +1,9 @@
-package provider.service;
+package com.awesome.testing.service;
 
+import com.awesome.testing.repository.InformationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import provider.dto.Information;
-import provider.repository.InformationRepository;
+import com.awesome.testing.dto.Information;
 
 import java.util.ArrayList;
 import java.util.List;

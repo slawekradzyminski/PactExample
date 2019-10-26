@@ -1,4 +1,4 @@
-package provider;
+package com.awesome.testing;
 
 import au.com.dius.pact.provider.junit.Provider;
 import au.com.dius.pact.provider.junit.State;
@@ -7,11 +7,11 @@ import au.com.dius.pact.provider.junit.target.Target;
 import au.com.dius.pact.provider.junit.target.TestTarget;
 import au.com.dius.pact.provider.spring.SpringRestPactRunner;
 import au.com.dius.pact.provider.spring.target.SpringBootHttpTarget;
+import com.awesome.testing.service.InformationService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import provider.service.InformationService;
-import provider.state.ContractState;
+import com.awesome.testing.state.ContractState;
 
 @RunWith(SpringRestPactRunner.class)
 @Provider("ExampleProvider")

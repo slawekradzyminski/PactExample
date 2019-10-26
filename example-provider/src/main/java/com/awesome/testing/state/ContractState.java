@@ -1,9 +1,9 @@
-package provider.state;
+package com.awesome.testing.state;
 
-import provider.service.InformationService;
+import com.awesome.testing.service.InformationService;
 
-import static provider.data.DatabaseData.MESSI_DB_ENTRY;
-import static provider.data.DatabaseData.RONALDO_DB_ENTRY;
+import static com.awesome.testing.data.DatabaseData.MESSI_DB_ENTRY;
+import static com.awesome.testing.data.DatabaseData.RONALDO_DB_ENTRY;
 
 public enum ContractState {
     DEFAULT("Two entries exist") {

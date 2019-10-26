@@ -1,6 +1,6 @@
-package provider.data;
+package com.awesome.testing.data;
 
-import provider.dto.Information;
+import com.awesome.testing.dto.Information;
 
 public class DatabaseData {
 

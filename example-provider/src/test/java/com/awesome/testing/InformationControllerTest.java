@@ -1,5 +1,6 @@
-package provider;
+package com.awesome.testing;
 
+import com.awesome.testing.service.InformationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,8 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import provider.dto.Information;
-import provider.service.InformationService;
+import com.awesome.testing.dto.Information;
 
 import java.util.List;
 

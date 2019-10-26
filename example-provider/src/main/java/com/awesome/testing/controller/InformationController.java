@@ -1,5 +1,6 @@
-package provider.controller;
+package com.awesome.testing.controller;
 
+import com.awesome.testing.service.InformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,8 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import provider.dto.Information;
-import provider.service.InformationService;
+import com.awesome.testing.dto.Information;
 
 import java.util.Optional;
 

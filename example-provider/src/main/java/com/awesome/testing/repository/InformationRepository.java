@@ -1,7 +1,7 @@
-package provider.repository;
+package com.awesome.testing.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import provider.dto.Information;
+import com.awesome.testing.dto.Information;
 
 import java.util.Optional;
 
