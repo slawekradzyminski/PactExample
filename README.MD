@@ -6,17 +6,23 @@
 - [7 reasons for consumer driven contracts](https://reflectoring.io/7-reasons-for-consumer-driven-contracts/)
 - [YouTube talk](https://www.youtube.com/watch?v=nQ0UGY2-YYI)
 
-##### Contract test great introduction
+### Contract test great introduction
 - [Introduction](https://kreuzwerker.de/post/introduction-to-consumer-driven-contract-testing)
 - [Writing tests](https://kreuzwerker.de/post/writing-contract-tests-with-pact-in-spring-boot)
 - [Continuous Integration](https://kreuzwerker.de/post/integrating-contract-tests-into-build-pipelines-with-pact-broker-and)
 - [Lessons Learned](https://kreuzwerker.de/post/contract-tests-lessons-learned)
 
-##### Testing message queues with Pact
+### Testing message queues with Pact
 
 - [Pact blog 1](https://dius.com.au/2017/09/22/contract-testing-serverless-and-asynchronous-applications/)
 - [Pact blog 2](https://dius.com.au/2018/10/01/contract-testing-serverless-and-asynchronous-applications---part-2/)
 - [Reflectoring blog](https://reflectoring.io/cdc-pact-messages/)
+
+### Pact and Node JS
+- [Recommended guide](https://medium.com/@liran.tal/a-comprehensive-guide-to-contract-testing-apis-in-a-service-oriented-architecture-5695ccf9ac5a)
+- [Reflectoring blog](https://reflectoring.io/pact-node-provider/)
+- [Risingstack blog 1](https://blog.risingstack.com/consumer-driven-contract-testing-with-pact/)
+- [Risingstack blog 2](https://blog.risingstack.com/advanced-contract-testing-pact-verification-with-pattern-matching/)
 
 ## Practice
 
@@ -71,3 +77,4 @@ Publish results:
 ### More playgrounds (a bit dated)
 - https://github.com/Mikuu/Pact-JVM-Example
 - https://github.com/DiUS/pact-workshop-jvm
+- https://github.com/RisingStack/pact-example (Node)
