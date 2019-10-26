@@ -12,7 +12,6 @@ buildscript {
         classpath 'au.com.dius:pact-jvm-provider-gradle:4.0.1'
         classpath 'com.wiredforcode:gradle-spawn-plugin:0.8.1'
         classpath 'org.ajoberstar.grgit:grgit-gradle:4.0.0-rc.1'
-        classpath 'com.h2database:h2:1.4.200'
     }
 }
 
@@ -64,10 +63,8 @@ subprojects {
         compile 'org.springframework.boot:spring-boot-starter-web'
         compile 'org.springframework.boot:spring-boot-devtools'
         compile 'org.springframework.boot:spring-boot-starter-jetty'
-        compile 'org.springframework.boot:spring-boot-starter-data-jpa'
         compile 'org.springframework.boot:spring-boot-starter-actuator'
         compile 'org.json:json:20190722'
-        compile 'com.h2database:h2:1.4.200'
 
         testCompile 'org.springframework.boot:spring-boot-starter-test'
         testCompile 'junit:junit'
@@ -100,6 +97,22 @@ project(':example-consumer-ronaldo') {
 }
 
 project(':example-provider') {
+
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+
+        dependencies {
+            classpath 'com.h2database:h2:1.4.200'
+        }
+    }
+
+    dependencies {
+        compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+        compile 'com.h2database:h2:1.4.200'
+    }
+
     task startProvider(type: SpawnProcessTask, dependsOn: 'assemble') {
         command "java -Dspring.profiles.active=pact -jar ${buildDir}/libs/example-provider.jar"
         ready 'Started ContractProvider'

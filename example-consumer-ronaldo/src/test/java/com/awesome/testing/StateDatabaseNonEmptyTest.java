@@ -29,7 +29,7 @@ public class StateDatabaseNonEmptyTest extends AbstractPactTest {
                 .headers(headers)
                 .status(200)
                 .body(newJsonBody((root) -> {
-                    root.numberType("salary");
+                    root.numberType("salary", 80000);
                     root.stringType("name", RONALDO);
                     root.stringValue("nationality", "Portugal");
                 }).build())
