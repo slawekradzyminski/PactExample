@@ -19,8 +19,7 @@ public enum ContractState {
     EMPTY("Empty database state") {
         @Override
         public void setState(InformationService informationService) {
-            informationService.delete(RONALDO_DB_ENTRY);
-            informationService.delete(MESSI_DB_ENTRY);
+            informationService.getAllInformation().forEach(informationService::delete);
         }
     };
 

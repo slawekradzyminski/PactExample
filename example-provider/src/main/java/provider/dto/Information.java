@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,10 +17,16 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class Information {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String nationality;
     private Integer salary;
+
+    public Information(String name, String nationality, Integer salary) {
+        this.name = name;
+        this.nationality = nationality;
+        this.salary = salary;
+    }
 
 }

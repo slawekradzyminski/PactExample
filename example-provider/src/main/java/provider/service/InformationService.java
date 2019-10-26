@@ -7,6 +7,7 @@ import provider.repository.InformationRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InformationService {
@@ -24,7 +25,11 @@ public class InformationService {
         return informations;
     }
 
-    public Information getInformationByName(String name) {
+    public Optional<Information> getInformationById(int id) {
+        return informationRepository.findById(id);
+    }
+
+    public Optional<Information> getInformationByName(String name) {
         return informationRepository.findByName(name);
     }
 
@@ -40,8 +45,8 @@ public class InformationService {
         informationRepository.delete(information);
     }
 
-    public void save(Information information) {
-        informationRepository.save(information);
+    public Information save(Information information) {
+        return informationRepository.save(information);
     }
 
 }
