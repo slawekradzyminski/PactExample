@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import provider.dto.Information;
 import provider.service.InformationService;
 
-import java.util.List;
-
 @RestController
 public class InformationController {
 
@@ -24,14 +22,15 @@ public class InformationController {
 
     @RequestMapping("/information")
     public ResponseEntity<?> information(@RequestParam(value = "name") String name) {
-        List<Information> informations = informationService.getFirstInformationByName(name);
-        if (informations.size() == 1) {
-            return ResponseEntity.ok()
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .body(informations.get(0));
-        } else {
+        Information information = informationService.getInformationByName(name);
+
+        if (information == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(information);
     }
 }
 

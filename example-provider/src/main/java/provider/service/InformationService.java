@@ -24,7 +24,7 @@ public class InformationService {
         return informations;
     }
 
-    public List<Information> getFirstInformationByName(String name) {
+    public Information getInformationByName(String name) {
         return informationRepository.findByName(name);
     }
 
