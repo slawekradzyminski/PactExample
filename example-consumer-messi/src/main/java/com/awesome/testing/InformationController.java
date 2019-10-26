@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class InformationController {
 
-    public static final String MESSI = "Messi";
+    public static final String MESSI = "LeoMessi";
 
     private final ProviderService providerService;
 

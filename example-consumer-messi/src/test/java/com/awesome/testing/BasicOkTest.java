@@ -20,17 +20,17 @@ public class BasicOkTest extends AbstractPactTest {
         headers.put("Content-Type", "application/json");
 
         return builder
-                .given("Default nationality")
-                .uponReceiving("Pact JVM example Pact interaction")
+                .given("Two entries exist")
+                .uponReceiving("Two entries exist")
                 .path("/information")
-                .query("name=Messi")
+                .query("name=" + MESSI)
                 .method("GET")
                 .willRespondWith()
                 .headers(headers)
                 .status(200)
                 .body(newJsonBody((root) -> {
                     root.numberType("salary", 7500);
-                    root.stringType("name", "Leo Messi");
+                    root.stringType("name", MESSI);
                     root.stringType("nationality", "Argentina");
                 }).build())
                 .toPact();
@@ -41,7 +41,7 @@ public class BasicOkTest extends AbstractPactTest {
         providerService.overrideBackendUrl(mockServer.getUrl());
         Information information = providerService.getResponseForName(MESSI).getBody();
         assertThat(information).isNotNull();
-        assertThat(information.getName()).isEqualTo("Leo Messi");
+        assertThat(information.getName()).isEqualTo(MESSI);
     }
 
 }

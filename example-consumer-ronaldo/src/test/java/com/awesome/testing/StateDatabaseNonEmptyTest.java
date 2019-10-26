@@ -12,7 +12,7 @@ import static com.awesome.testing.InformationController.RONALDO;
 import static io.pactfoundation.consumer.dsl.LambdaDsl.newJsonBody;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class EmptyNationalityPactTest extends AbstractPactTest {
+public class StateDatabaseNonEmptyTest extends AbstractPactTest {
 
     @Override
     protected RequestResponsePact createPact(PactDslWithProvider builder) {
@@ -20,17 +20,17 @@ public class EmptyNationalityPactTest extends AbstractPactTest {
         headers.put("Content-Type", "application/json");
 
         return builder
-                .given("Default nationality change")
-                .uponReceiving("Default nationality change")
+                .given("Two entries exist")
+                .uponReceiving("Two entries exist")
                 .path("/information")
-                .query("name=Ronaldo")
+                .query("name=" + RONALDO)
                 .method("GET")
                 .willRespondWith()
                 .headers(headers)
                 .status(200)
                 .body(newJsonBody((root) -> {
                     root.numberType("salary");
-                    root.stringType("name", "Cristiano Ronaldo");
+                    root.stringType("name", RONALDO);
                     root.stringValue("nationality", "Portugal");
                 }).build())
                 .toPact();
@@ -42,5 +42,6 @@ public class EmptyNationalityPactTest extends AbstractPactTest {
         Information information = providerService.getResponseForName(RONALDO).getBody();
         assertThat(information).isNotNull();
         assertThat(information.getNationality()).isEqualTo("Portugal");
+        assertThat(information.getName()).isEqualTo(RONALDO);
     }
 }

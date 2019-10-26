@@ -12,7 +12,7 @@ public class InformationController {
 
     private final ProviderService providerService;
 
-    public static final String RONALDO = "Ronaldo";
+    public static final String RONALDO = "CristianoRonaldo";
 
     @Autowired
     public InformationController(ProviderService providerService) {

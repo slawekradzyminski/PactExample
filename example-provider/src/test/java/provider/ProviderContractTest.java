@@ -8,8 +8,10 @@ import au.com.dius.pact.provider.junit.target.TestTarget;
 import au.com.dius.pact.provider.spring.SpringRestPactRunner;
 import au.com.dius.pact.provider.spring.target.SpringBootHttpTarget;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import provider.ulti.Nationality;
+import provider.service.InformationService;
+import provider.state.ContractState;
 
 @RunWith(SpringRestPactRunner.class)
 @Provider("ExampleProvider")
@@ -17,17 +19,20 @@ import provider.ulti.Nationality;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class ProviderContractTest {
 
+    @Autowired
+    private InformationService informationService;
+
     @TestTarget
     public final Target target = new SpringBootHttpTarget();
 
-    @State("Default nationality change")
-    public void changeToPortugal() {
-        Nationality.setNationality("Portugal");
+    @State("Empty database state")
+    public void emptyDatabase() {
+        ContractState.EMPTY.setState(informationService);
     }
 
-    @State("Default nationality")
+    @State("Two entries exist")
     public void defaultState() {
-        Nationality.setNationality("Argentina");
+        ContractState.DEFAULT.setState(informationService);
     }
 }
 
