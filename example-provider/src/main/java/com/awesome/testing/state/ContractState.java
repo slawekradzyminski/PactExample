@@ -9,10 +9,9 @@ public enum ContractState {
     DEFAULT("Two entries exist") {
         @Override
         public void setState(InformationService informationService) {
-            if (informationService.getAllInformation().size() < 2) {
-                informationService.save(RONALDO_DB_ENTRY);
-                informationService.save(MESSI_DB_ENTRY);
-            }
+            informationService.getAllInformation().forEach(informationService::delete);
+            informationService.save(RONALDO_DB_ENTRY);
+            informationService.save(MESSI_DB_ENTRY);
         }
     },
 
