@@ -1,4 +1,4 @@
-package com.awesome.testing;
+package com.awesome.testing.contract;
 
 import au.com.dius.pact.provider.junit.Provider;
 import au.com.dius.pact.provider.junit.State;
