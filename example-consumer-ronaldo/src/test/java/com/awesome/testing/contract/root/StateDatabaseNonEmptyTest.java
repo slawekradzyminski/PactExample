@@ -1,16 +1,13 @@
-package com.awesome.testing.contract;
+package com.awesome.testing.contract.root;
 
 import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.PactTestExecutionContext;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.core.model.RequestResponsePact;
 import com.awesome.testing.Information;
-import org.springframework.http.MediaType;
+import com.awesome.testing.contract.AbstractPactTest;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.awesome.testing.InformationController.RONALDO;
+import static com.awesome.testing.controller.RootController.RONALDO;
 import static io.pactfoundation.consumer.dsl.LambdaDsl.newJsonBody;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,8 +15,6 @@ public class StateDatabaseNonEmptyTest extends AbstractPactTest {
 
     @Override
     protected RequestResponsePact createPact(PactDslWithProvider builder) {
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", MediaType.APPLICATION_JSON_VALUE);
 
         return builder
                 .given("Two entries exist")
@@ -28,7 +23,7 @@ public class StateDatabaseNonEmptyTest extends AbstractPactTest {
                 .query("name=" + RONALDO)
                 .method("GET")
                 .willRespondWith()
-                .headers(headers)
+                .headers(getJsonHeader())
                 .status(200)
                 .body(newJsonBody((root) -> {
                     root.numberType("salary", 80000);

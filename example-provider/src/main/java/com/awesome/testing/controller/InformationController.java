@@ -59,8 +59,10 @@ public class InformationController {
             return ResponseEntity.unprocessableEntity().build();
         }
 
-        informationService.save(information);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        Information saved = informationService.save(information);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(saved);
     }
 
     @DeleteMapping("/information/{id}")

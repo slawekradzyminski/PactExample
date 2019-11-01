@@ -1,12 +1,13 @@
-package com.awesome.testing.contract;
+package com.awesome.testing.contract.root;
 
 import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.PactTestExecutionContext;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.core.model.RequestResponsePact;
+import com.awesome.testing.contract.AbstractPactTest;
 import org.springframework.web.client.HttpClientErrorException;
 
-import static com.awesome.testing.InformationController.RONALDO;
+import static com.awesome.testing.controller.RootController.RONALDO;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class StateDatabaseEmptyTest extends AbstractPactTest {

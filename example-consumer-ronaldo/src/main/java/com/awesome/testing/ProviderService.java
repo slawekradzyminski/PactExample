@@ -8,17 +8,26 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ProviderService {
 
+    private final RestTemplate restTemplate;
+
     @Value("${backend.url}")
     private String backendUrl;
+
+    public ProviderService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public void overrideBackendUrl(String newUrl) {
         backendUrl = newUrl;
     }
 
     public ResponseEntity<Information> getResponseForName(String name) {
-        RestTemplate restTemplate = new RestTemplate();
-
         String url = String.format("%s/information?name=%s", backendUrl, name);
         return restTemplate.getForEntity(url, Information.class);
+    }
+
+    public ResponseEntity<Information> add(Information information) {
+        String url = String.format("%s/information", backendUrl);
+        return restTemplate.postForEntity(url, information, Information.class);
     }
 }

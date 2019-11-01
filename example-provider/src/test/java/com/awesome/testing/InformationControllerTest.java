@@ -100,13 +100,21 @@ public class InformationControllerTest {
 
     @Test
     public void shouldSuccessfullyAdd() throws Exception {
-        Information information = new Information("Slawomir", "Poland", 1);
+        String slawomir = "Slawomir";
+        String poland = "Poland";
+        int salary = 1;
+        Information information = new Information(slawomir, poland, salary);
         String jsonString = objectMapper.writeValueAsString(information);
 
         mockMvc.perform(post("/information")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonString))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.name").value(slawomir))
+                .andExpect(jsonPath("$.salary").value(salary))
+                .andExpect(jsonPath("$.nationality").value(poland));
 
         List<Information> allInformation = informationService.getAllInformation();
         assertThat(allInformation).hasSize(3);

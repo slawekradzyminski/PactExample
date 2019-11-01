@@ -1,5 +1,7 @@
-package com.awesome.testing;
+package com.awesome.testing.controller;
 
+import com.awesome.testing.Information;
+import com.awesome.testing.ProviderService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -8,14 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class InformationController {
+public class RootController {
 
     private final ProviderService providerService;
 
     public static final String RONALDO = "CristianoRonaldo";
 
     @Autowired
-    public InformationController(ProviderService providerService) {
+    public RootController(ProviderService providerService) {
         this.providerService = providerService;
     }
 
@@ -31,6 +33,5 @@ public class InformationController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(jsonString);
     }
-
 
 }
