@@ -161,11 +161,13 @@ public class InformationControllerTest {
     }
 
     @Test
-    public void shouldReturn406WhenNonexsistingIdViaPut() throws Exception {
-        HashMap<String, Object> sampleUpdates = new HashMap<>();
-        sampleUpdates.put("key", "value");
+    public void shouldReturn406WhenNonexistingIdViaPut() throws Exception {
+        String name = "Yoda";
+        String nationality = "France";
+        int salary = 2;
 
-        String jsonString = objectMapper.writeValueAsString(sampleUpdates);
+        Information informationToUpdate = new Information(name, nationality, salary);
+        String jsonString = objectMapper.writeValueAsString(informationToUpdate);
 
         mockMvc.perform(put("/information/66666")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -200,12 +202,10 @@ public class InformationControllerTest {
 
     @Test
     public void shouldReturn406WhenNonexistingIdViaPatch() throws Exception {
-        String name = "Yoda";
-        String nationality = "France";
-        int salary = 2;
+        HashMap<String, Object> sampleUpdates = new HashMap<>();
+        sampleUpdates.put("key", "value");
 
-        Information informationToUpdate = new Information(name, nationality, salary);
-        String jsonString = objectMapper.writeValueAsString(informationToUpdate);
+        String jsonString = objectMapper.writeValueAsString(sampleUpdates);
 
         mockMvc.perform(patch("/information/66666")
                 .contentType(MediaType.APPLICATION_JSON)
