@@ -33,10 +33,6 @@ public class InformationService {
         return informationRepository.findByName(name);
     }
 
-    public void saveOrUpdate(Information information) {
-        informationRepository.save(information);
-    }
-
     public void deleteById(int id) {
         informationRepository.deleteById(id);
     }
