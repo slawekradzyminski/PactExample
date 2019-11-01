@@ -1,6 +1,7 @@
-package com.awesome.testing;
+package com.awesome.testing.contract;
 
 import au.com.dius.pact.consumer.junit.ConsumerPactTest;
+import com.awesome.testing.ProviderService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,9 +1,11 @@
-package com.awesome.testing;
+package com.awesome.testing.contract;
 
 import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.PactTestExecutionContext;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.core.model.RequestResponsePact;
+import com.awesome.testing.Information;
+import org.springframework.http.MediaType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +19,7 @@ public class StateDatabaseNonEmptyTest extends AbstractPactTest {
     @Override
     protected RequestResponsePact createPact(PactDslWithProvider builder) {
         Map<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", "application/json");
+        headers.put("Content-Type", MediaType.APPLICATION_JSON_VALUE);
 
         return builder
                 .given("Two entries exist")

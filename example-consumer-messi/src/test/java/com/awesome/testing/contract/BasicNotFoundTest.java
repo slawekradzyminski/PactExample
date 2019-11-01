@@ -1,4 +1,4 @@
-package com.awesome.testing;
+package com.awesome.testing.contract;
 
 import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.PactTestExecutionContext;
@@ -6,18 +6,19 @@ import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.core.model.RequestResponsePact;
 import org.springframework.web.client.HttpClientErrorException;
 
-import static com.awesome.testing.InformationController.RONALDO;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class StateDatabaseEmptyTest extends AbstractPactTest {
+public class BasicNotFoundTest extends AbstractPactTest {
+
+    private static final String NONEXISTING_NAME = "Nonexisting";
 
     @Override
-    protected RequestResponsePact createPact(PactDslWithProvider builder) {
+    public RequestResponsePact createPact(PactDslWithProvider builder) {
         return builder
-                .given("Empty database state")
-                .uponReceiving("Empty database state")
+                .given("Two entries exist")
+                .uponReceiving("Request that cannot be fulfilled")
                 .path("/information")
-                .query("name=" + RONALDO)
+                .query("name=" + NONEXISTING_NAME)
                 .method("GET")
                 .willRespondWith()
                 .status(404)
@@ -27,8 +28,9 @@ public class StateDatabaseEmptyTest extends AbstractPactTest {
     @Override
     protected void runTest(MockServer mockServer, PactTestExecutionContext context) {
         providerService.overrideBackendUrl(mockServer.getUrl());
-        assertThatThrownBy(() -> providerService.getResponseForName(RONALDO))
+        assertThatThrownBy(() -> providerService.getResponseForName(NONEXISTING_NAME))
                 .isInstanceOf(HttpClientErrorException.class)
                 .hasMessageContaining("404");
     }
+
 }

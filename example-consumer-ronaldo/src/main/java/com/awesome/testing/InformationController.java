@@ -23,9 +23,9 @@ public class InformationController {
     public ResponseEntity<?> ronaldo() {
         Information information = providerService.getResponseForName(RONALDO).getBody();
         String jsonString = new JSONObject()
-                .put("Name", information.getName())
-                .put("Salary", information.getSalary())
-                .put("Nationality", information.getNationality())
+                .put("name", information.getName())
+                .put("salary", information.getSalary())
+                .put("nationality", information.getNationality())
                 .toString();
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)
