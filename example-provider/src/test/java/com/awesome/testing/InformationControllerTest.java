@@ -14,13 +14,23 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import com.awesome.testing.dto.Information;
 
+import javax.naming.ConfigurationException;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.awesome.testing.data.DatabaseData.MESSI_DB_ENTRY;
+import static com.awesome.testing.data.DatabaseData.RONALDO_DB_ENTRY;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasSize;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -124,6 +134,108 @@ public class InformationControllerTest {
 
         mockMvc.perform(delete("/information/" + informationAdded.getId()))
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void shouldSuccessfullyUpdateViaPut() throws Exception {
+        int existingId = getExistingId();
+
+        String name = "Yoda";
+        String nationality = "France";
+        int salary = 2;
+
+        Information informationUpdate = new Information(name, nationality, salary);
+        String jsonString = objectMapper.writeValueAsString(informationUpdate);
+
+        mockMvc.perform(put("/information/" + existingId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonString))
+                .andExpect(status().isOk());
+
+        assertThat(informationService.getAllInformation()).hasSize(2);
+
+        Information updatedInformation = informationService.getInformationById(existingId).get();
+        assertThat(updatedInformation.getName()).isEqualTo(name);
+        assertThat(updatedInformation.getNationality()).isEqualTo(nationality);
+        assertThat(updatedInformation.getSalary()).isEqualTo(salary);
+    }
+
+    @Test
+    public void shouldReturn406WhenNonexsistingIdViaPut() throws Exception {
+        HashMap<String, Object> sampleUpdates = new HashMap<>();
+        sampleUpdates.put("key", "value");
+
+        String jsonString = objectMapper.writeValueAsString(sampleUpdates);
+
+        mockMvc.perform(put("/information/66666")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonString))
+                .andExpect(status().isNotAcceptable());
+    }
+
+    @Test
+    public void shouldSuccessfullyUpdateViaPatch() throws Exception {
+        int existingId = getExistingId();
+        String name = "Yoda";
+        int salary = 2;
+
+        HashMap<String, Object> sampleUpdates = new HashMap<>();
+        sampleUpdates.put("name", name);
+        sampleUpdates.put("salary", salary);
+
+        String jsonString = objectMapper.writeValueAsString(sampleUpdates);
+
+        mockMvc.perform(patch("/information/" + existingId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonString))
+                .andExpect(status().isOk());
+
+        assertThat(informationService.getAllInformation()).hasSize(2);
+
+        Information updatedInformation = informationService.getInformationById(existingId).get();
+        assertThat(updatedInformation.getName()).isEqualTo(name);
+        assertThat(updatedInformation.getSalary()).isEqualTo(salary);
+        assertThat(updatedInformation.getNationality()).isEqualTo(RONALDO_DB_ENTRY.getNationality());
+    }
+
+    @Test
+    public void shouldReturn406WhenNonexistingIdViaPatch() throws Exception {
+        String name = "Yoda";
+        String nationality = "France";
+        int salary = 2;
+
+        Information informationToUpdate = new Information(name, nationality, salary);
+        String jsonString = objectMapper.writeValueAsString(informationToUpdate);
+
+        mockMvc.perform(patch("/information/66666")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonString))
+                .andExpect(status().isNotAcceptable());
+    }
+
+    @Test
+    public void shouldReturn400WhenNonexistingParameterViaPatch() throws Exception {
+        int existingId = getExistingId();
+
+        HashMap<String, Object> sampleUpdates = new HashMap<>();
+        sampleUpdates.put("key", "value");
+
+        String jsonString = objectMapper.writeValueAsString(sampleUpdates);
+
+        mockMvc.perform(patch("/information/" + existingId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonString))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(containsString(
+                        "parameter that does not exist in Information DTO")));
+    }
+
+    private Integer getExistingId() throws ConfigurationException {
+        return informationService.getAllInformation()
+                .stream()
+                .map(Information::getId)
+                .findFirst()
+                .orElseThrow(ConfigurationException::new);
     }
 
 }
