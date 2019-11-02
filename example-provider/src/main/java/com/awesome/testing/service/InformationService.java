@@ -45,4 +45,8 @@ public class InformationService {
         return informationRepository.save(information);
     }
 
+    public void resetIdAutoincrement() {
+        informationRepository.resetAutoincrement();
+    }
+
 }

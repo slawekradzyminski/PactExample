@@ -9,6 +9,7 @@ public enum ContractState {
     DEFAULT("Two entries exist") {
         @Override
         public void setState(InformationService informationService) {
+            informationService.resetIdAutoincrement();
             informationService.getAllInformation().forEach(informationService::delete);
             informationService.save(RONALDO_DB_ENTRY);
             informationService.save(MESSI_DB_ENTRY);
@@ -18,6 +19,7 @@ public enum ContractState {
     EMPTY("Empty database state") {
         @Override
         public void setState(InformationService informationService) {
+            informationService.resetIdAutoincrement();
             informationService.getAllInformation().forEach(informationService::delete);
         }
     };
