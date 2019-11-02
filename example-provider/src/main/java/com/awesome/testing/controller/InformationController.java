@@ -42,7 +42,7 @@ public class InformationController {
     }
 
     @GetMapping("/information/{id}")
-    public ResponseEntity<?> getInformationById(@PathVariable int id) {
+    public ResponseEntity<?> getInformationById(@PathVariable long id) {
         Optional<Information> information = informationService.getInformationById(id);
         return returnResultFromOptional(information);
     }
@@ -66,13 +66,13 @@ public class InformationController {
     }
 
     @DeleteMapping("/information/{id}")
-    public ResponseEntity<?> deleteInfo(@PathVariable int id) {
+    public ResponseEntity<?> deleteInfo(@PathVariable long id) {
         informationService.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping("/information/{id}")
-    public ResponseEntity<?> put(@RequestBody Information information, @PathVariable int id) {
+    public ResponseEntity<?> put(@RequestBody Information information, @PathVariable long id) {
         if (!informationService.getInformationById(id).isPresent()) {
             return handleIdNotFoundError();
         }
@@ -83,7 +83,7 @@ public class InformationController {
     }
 
     @PatchMapping("/information/{id}")
-    public ResponseEntity<?> patch(@RequestBody Map<String, Object> updates, @PathVariable int id) {
+    public ResponseEntity<?> patch(@RequestBody Map<String, Object> updates, @PathVariable long id) {
         if (!informationService.getInformationById(id).isPresent()) {
             return handleIdNotFoundError();
         }

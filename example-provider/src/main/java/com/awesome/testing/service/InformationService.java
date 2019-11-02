@@ -25,7 +25,7 @@ public class InformationService {
         return informations;
     }
 
-    public Optional<Information> getInformationById(int id) {
+    public Optional<Information> getInformationById(long id) {
         return informationRepository.findById(id);
     }
 
@@ -33,7 +33,7 @@ public class InformationService {
         return informationRepository.findByName(name);
     }
 
-    public void deleteById(int id) {
+    public void deleteById(long id) {
         informationRepository.deleteById(id);
     }
 

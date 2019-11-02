@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class Information {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private long id;
     private String name;
     private String nationality;
     private Integer salary;

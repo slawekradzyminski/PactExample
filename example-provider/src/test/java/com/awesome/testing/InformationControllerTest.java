@@ -146,7 +146,7 @@ public class InformationControllerTest {
 
     @Test
     public void shouldSuccessfullyUpdateViaPut() throws Exception {
-        int existingId = getExistingId();
+        long existingId = getExistingId();
 
         String name = "Yoda";
         String nationality = "France";
@@ -185,7 +185,7 @@ public class InformationControllerTest {
 
     @Test
     public void shouldSuccessfullyUpdateViaPatch() throws Exception {
-        int existingId = getExistingId();
+        long existingId = getExistingId();
         String name = "Yoda";
         int salary = 2;
 
@@ -223,7 +223,7 @@ public class InformationControllerTest {
 
     @Test
     public void shouldReturn400WhenNonexistingParameterViaPatch() throws Exception {
-        int existingId = getExistingId();
+        long existingId = getExistingId();
 
         HashMap<String, Object> sampleUpdates = new HashMap<>();
         sampleUpdates.put("key", "value");
@@ -238,7 +238,7 @@ public class InformationControllerTest {
                         "parameter that does not exist in Information DTO")));
     }
 
-    private Integer getExistingId() throws ConfigurationException {
+    private long getExistingId() throws ConfigurationException {
         return informationService.getAllInformation()
                 .stream()
                 .map(Information::getId)

@@ -5,7 +5,7 @@ import com.awesome.testing.dto.Information;
 
 import java.util.Optional;
 
-public interface InformationRepository extends CrudRepository<Information, Integer> {
+public interface InformationRepository extends CrudRepository<Information, Long> {
 
     Optional<Information> findByName(String name);
 
