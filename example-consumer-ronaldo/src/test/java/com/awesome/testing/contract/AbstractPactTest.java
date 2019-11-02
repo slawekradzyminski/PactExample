@@ -1,7 +1,7 @@
 package com.awesome.testing.contract;
 
 import au.com.dius.pact.consumer.junit.ConsumerPactTest;
-import com.awesome.testing.ProviderService;
+import com.awesome.testing.service.ProviderService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,7 +31,7 @@ public abstract class AbstractPactTest extends ConsumerPactTest {
         return CUSTOMER_NAME;
     }
 
-    protected Map<String, String> getJsonHeader() {
+    protected Map<String, String> getApplicationJsonHeader() {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", MediaType.APPLICATION_JSON_VALUE);
         return headers;

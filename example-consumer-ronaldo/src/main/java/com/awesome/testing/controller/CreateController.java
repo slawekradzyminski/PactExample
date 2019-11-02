@@ -1,7 +1,7 @@
 package com.awesome.testing.controller;
 
-import com.awesome.testing.Information;
-import com.awesome.testing.ProviderService;
+import com.awesome.testing.dto.Information;
+import com.awesome.testing.service.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

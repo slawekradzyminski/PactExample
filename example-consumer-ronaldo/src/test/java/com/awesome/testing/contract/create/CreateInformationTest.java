@@ -4,9 +4,13 @@ import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.PactTestExecutionContext;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.core.model.RequestResponsePact;
-import com.awesome.testing.Information;
+import com.awesome.testing.dto.Information;
 import com.awesome.testing.contract.AbstractPactTest;
 
+import static com.awesome.testing.dto.InformationField.ID;
+import static com.awesome.testing.dto.InformationField.NAME;
+import static com.awesome.testing.dto.InformationField.NATIONALITY;
+import static com.awesome.testing.dto.InformationField.SALARY;
 import static io.pactfoundation.consumer.dsl.LambdaDsl.newJsonBody;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,21 +27,21 @@ public class CreateInformationTest extends AbstractPactTest {
                 .uponReceiving("Add information request")
                 .path("/information")
                 .method("POST")
-                .headers(getJsonHeader())
+                .headers(getApplicationJsonHeader())
                 .body(newJsonBody((root) -> {
-                    root.stringType("name", SAMPLE_NAME);
-                    root.stringValue("nationality", SAMPLE_NATIONALITY);
-                    root.numberType("salary", SAMPLE_SALARY);
+                    root.stringValue(NAME.getValue(), SAMPLE_NAME);
+                    root.stringValue(NATIONALITY.getValue(), SAMPLE_NATIONALITY);
+                    root.numberValue(SALARY.getValue(), SAMPLE_SALARY);
                 }).build())
                 .willRespondWith()
                 .status(201)
                 .body(newJsonBody((root) -> {
-                    root.numberType("id", 3);
-                    root.stringValue("name", SAMPLE_NAME);
-                    root.stringValue("nationality", SAMPLE_NATIONALITY);
-                    root.numberValue("salary", SAMPLE_SALARY);
+                    root.numberType(ID.getValue(), 3);
+                    root.stringValue(NAME.getValue(), SAMPLE_NAME);
+                    root.stringValue(NATIONALITY.getValue(), SAMPLE_NATIONALITY);
+                    root.numberValue(SALARY.getValue(), SAMPLE_SALARY);
                 }).build())
-                .headers(getJsonHeader())
+                .headers(getApplicationJsonHeader())
                 .toPact();
     }
 

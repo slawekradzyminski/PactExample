@@ -4,10 +4,13 @@ import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.PactTestExecutionContext;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.core.model.RequestResponsePact;
-import com.awesome.testing.Information;
+import com.awesome.testing.dto.Information;
 import com.awesome.testing.contract.AbstractPactTest;
 
 import static com.awesome.testing.controller.RootController.RONALDO;
+import static com.awesome.testing.dto.InformationField.NAME;
+import static com.awesome.testing.dto.InformationField.NATIONALITY;
+import static com.awesome.testing.dto.InformationField.SALARY;
 import static io.pactfoundation.consumer.dsl.LambdaDsl.newJsonBody;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,12 +26,12 @@ public class StateDatabaseNonEmptyTest extends AbstractPactTest {
                 .query("name=" + RONALDO)
                 .method("GET")
                 .willRespondWith()
-                .headers(getJsonHeader())
+                .headers(getApplicationJsonHeader())
                 .status(200)
                 .body(newJsonBody((root) -> {
-                    root.numberType("salary", 80000);
-                    root.stringType("name", RONALDO);
-                    root.stringValue("nationality", "Portugal");
+                    root.stringType(NAME.getValue(), RONALDO);
+                    root.stringValue(NATIONALITY.getValue(), "Portugal");
+                    root.numberType(SALARY.getValue(), 80000);
                 }).build())
                 .toPact();
     }

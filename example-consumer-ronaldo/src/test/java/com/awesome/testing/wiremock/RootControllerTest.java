@@ -1,6 +1,6 @@
 package com.awesome.testing.wiremock;
 
-import com.awesome.testing.Information;
+import com.awesome.testing.dto.Information;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,6 +1,6 @@
 package com.awesome.testing.wiremock;
 
-import com.awesome.testing.ProviderService;
+import com.awesome.testing.service.ProviderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Before;
