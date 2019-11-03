@@ -18,6 +18,11 @@ public abstract class AbstractPactTest extends ConsumerPactTest {
     private static final String PROVIDER_NAME = "ExampleProvider";
     private static final String CUSTOMER_NAME = "Ronaldo";
 
+    protected static final long SAMPLE_ID = 1;
+    protected static final String SAMPLE_NAME = "JohnnyBravo";
+    protected static final String SAMPLE_NATIONALITY = "Japan";
+    protected static final int SAMPLE_SALARY = 4444;
+
     @Autowired
     protected ProviderService providerService;
 
