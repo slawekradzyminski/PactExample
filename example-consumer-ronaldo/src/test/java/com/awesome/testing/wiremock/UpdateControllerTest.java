@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.time.Instant;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.post;
+import static com.github.tomakehurst.wiremock.client.WireMock.put;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,9 +28,9 @@ public class UpdateControllerTest extends AbstractWiremock {
         Information sample = new Information(ID, NAME, NATIONALITY, SALARY);
         String jsonBody = objectMapper.writeValueAsString(sample);
 
-        stubFor(post(urlEqualTo("/information"))
+        stubFor(put(urlEqualTo("/information/1"))
                 .willReturn(aResponse()
-                        .withStatus(201)
+                        .withStatus(200)
                         .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                         .withBody(jsonBody)));
     }
@@ -40,10 +40,10 @@ public class UpdateControllerTest extends AbstractWiremock {
         IdNotAwareInformation info = new IdNotAwareInformation(NAME, NATIONALITY, SALARY);
         String jsonBody = objectMapper.writeValueAsString(info);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/create")
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/update/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonBody))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(ID))
                 .andExpect(jsonPath("$.name").value(NAME))
