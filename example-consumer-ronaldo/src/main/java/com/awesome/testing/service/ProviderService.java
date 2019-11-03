@@ -1,7 +1,12 @@
 package com.awesome.testing.service;
 
-import com.awesome.testing.dto.Information;
+import com.awesome.testing.dto.information.IdNotAwareInformation;
+import com.awesome.testing.dto.information.Information;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -27,8 +32,16 @@ public class ProviderService {
         return restTemplate.getForEntity(url, Information.class);
     }
 
-    public ResponseEntity<Information> add(Information information) {
+    public ResponseEntity<Information> add(IdNotAwareInformation information) {
         String url = String.format("%s/information", backendUrl);
         return restTemplate.postForEntity(url, information, Information.class);
+    }
+
+    public ResponseEntity<Information> updateViaPut(IdNotAwareInformation information, long id) {
+        String url = String.format("%s/information/%s", backendUrl, id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+        HttpEntity<IdNotAwareInformation> httpEntity = new HttpEntity<>(information, headers);
+        return restTemplate.exchange(url, HttpMethod.PUT, httpEntity, Information.class);
     }
 }

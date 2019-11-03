@@ -1,5 +1,8 @@
 package com.awesome.testing;
 
+import com.awesome.testing.error.DisabledErrorHandler;
+import com.awesome.testing.error.ErrorProxy;
+import com.awesome.testing.util.InformationTransformer;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +26,17 @@ public class ApplicationConfig {
 
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
+        return builder.errorHandler(new DisabledErrorHandler()).build();
+    }
+
+    @Bean
+    public ErrorProxy errorProxy() {
+        return new ErrorProxy();
+    }
+
+    @Bean
+    public InformationTransformer informationTransformer() {
+        return new InformationTransformer();
     }
 
 }

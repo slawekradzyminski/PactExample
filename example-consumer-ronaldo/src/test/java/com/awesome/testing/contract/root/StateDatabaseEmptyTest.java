@@ -5,10 +5,12 @@ import au.com.dius.pact.consumer.PactTestExecutionContext;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.core.model.RequestResponsePact;
 import com.awesome.testing.contract.AbstractPactTest;
-import org.springframework.web.client.HttpClientErrorException;
+import com.awesome.testing.dto.information.Information;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import static com.awesome.testing.controller.RootController.RONALDO;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class StateDatabaseEmptyTest extends AbstractPactTest {
 
@@ -28,8 +30,7 @@ public class StateDatabaseEmptyTest extends AbstractPactTest {
     @Override
     protected void runTest(MockServer mockServer, PactTestExecutionContext context) {
         providerService.overrideBackendUrl(mockServer.getUrl());
-        assertThatThrownBy(() -> providerService.getResponseForName(RONALDO))
-                .isInstanceOf(HttpClientErrorException.class)
-                .hasMessageContaining("404");
+        ResponseEntity<Information> responseForName = providerService.getResponseForName(RONALDO);
+        assertThat(responseForName.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 }

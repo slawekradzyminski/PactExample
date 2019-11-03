@@ -19,6 +19,11 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 @AutoConfigureMockMvc
 public abstract class AbstractWiremock {
 
+    static final long ID = 1;
+    static final String NAME = "SampleName";
+    static final String NATIONALITY = "Gabon";
+    static final int SALARY = 1234;
+
     @Autowired
     protected MockMvc mockMvc;
 

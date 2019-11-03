@@ -1,4 +1,4 @@
-package com.awesome.testing.dto;
+package com.awesome.testing.dto.information;
 
 public enum InformationField {
 

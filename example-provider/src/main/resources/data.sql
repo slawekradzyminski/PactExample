@@ -8,3 +8,6 @@ CREATE TABLE information (
   nationality VARCHAR(250) NOT NULL,
   salary INTEGER DEFAULT NULL
 );
+INSERT INTO information (name, nationality, salary) VALUES
+  ('CristianoRonaldo', 'Portugal', 80000),
+  ('LeoMessi', 'Argentina', 45000);

@@ -1,5 +1,6 @@
 package com.awesome.testing.wiremock;
 
+import com.awesome.testing.dto.information.IdNotAwareInformation;
 import com.awesome.testing.dto.information.Information;
 import com.awesome.testing.dto.information.TimedInformation;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -11,9 +12,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.Instant;
 
-import static com.awesome.testing.controller.RootController.RONALDO;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,30 +21,33 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class RootControllerTest extends AbstractWiremock {
-
-    private static final String PORTUGAL = "Portugal";
+public class UpdateControllerTest extends AbstractWiremock {
 
     @Before
     public void prepareBackendResponse() throws JsonProcessingException {
-        Information ronaldo = new Information(ID, RONALDO, PORTUGAL, SALARY);
-        String jsonBody = objectMapper.writeValueAsString(ronaldo);
+        Information sample = new Information(ID, NAME, NATIONALITY, SALARY);
+        String jsonBody = objectMapper.writeValueAsString(sample);
 
-        stubFor(get(urlEqualTo("/information?name=" + RONALDO))
+        stubFor(post(urlEqualTo("/information"))
                 .willReturn(aResponse()
-                        .withStatus(200)
+                        .withStatus(201)
                         .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                         .withBody(jsonBody)));
     }
 
     @Test
     public void shouldCorrectlyRespond() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/"))
-                .andExpect(status().isOk())
+        IdNotAwareInformation info = new IdNotAwareInformation(NAME, NATIONALITY, SALARY);
+        String jsonBody = objectMapper.writeValueAsString(info);
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonBody))
+                .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(ID))
-                .andExpect(jsonPath("$.name").value(RONALDO))
-                .andExpect(jsonPath("$.nationality").value(PORTUGAL))
+                .andExpect(jsonPath("$.name").value(NAME))
+                .andExpect(jsonPath("$.nationality").value(NATIONALITY))
                 .andExpect(jsonPath("$.salary").value(SALARY))
                 .andReturn();
 

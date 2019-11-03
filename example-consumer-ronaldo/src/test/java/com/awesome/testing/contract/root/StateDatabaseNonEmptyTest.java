@@ -4,13 +4,13 @@ import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.PactTestExecutionContext;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.core.model.RequestResponsePact;
-import com.awesome.testing.dto.Information;
+import com.awesome.testing.dto.information.Information;
 import com.awesome.testing.contract.AbstractPactTest;
 
 import static com.awesome.testing.controller.RootController.RONALDO;
-import static com.awesome.testing.dto.InformationField.NAME;
-import static com.awesome.testing.dto.InformationField.NATIONALITY;
-import static com.awesome.testing.dto.InformationField.SALARY;
+import static com.awesome.testing.dto.information.InformationField.NAME;
+import static com.awesome.testing.dto.information.InformationField.NATIONALITY;
+import static com.awesome.testing.dto.information.InformationField.SALARY;
 import static io.pactfoundation.consumer.dsl.LambdaDsl.newJsonBody;
 import static org.assertj.core.api.Assertions.assertThat;
 
