@@ -1,4 +1,4 @@
-package com.awesome.testing;
+package com.awesome.testing.controller;
 
 import com.awesome.testing.dto.Information;
 import com.awesome.testing.dto.StateDto;

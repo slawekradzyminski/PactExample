@@ -78,8 +78,8 @@ public class InformationController {
         }
 
         information.setId(id);
-        informationService.save(information);
-        return ResponseEntity.ok().build();
+        Information updated = informationService.save(information);
+        return ResponseEntity.ok().body(updated);
     }
 
     @PatchMapping("/information/{id}")
@@ -92,15 +92,15 @@ public class InformationController {
             return handleWrongParamNamesError();
         }
 
-        Information informationUpdated = informationService.getInformationById(id).get();
+        Information informationBeingUpdated = informationService.getInformationById(id).get();
 
         updates.forEach((k, v) -> {
             Field field = ReflectionUtils.findField(Information.class, k);
             field.setAccessible(true);
-            ReflectionUtils.setField(requireNonNull(field), informationUpdated, v);
+            ReflectionUtils.setField(requireNonNull(field), informationBeingUpdated, v);
         });
-        informationService.save(informationUpdated);
-        return ResponseEntity.ok().build();
+        Information updated = informationService.save(informationBeingUpdated);
+        return ResponseEntity.ok().body(updated);
     }
 
     private ResponseEntity<?> handleWrongParamNamesError() {

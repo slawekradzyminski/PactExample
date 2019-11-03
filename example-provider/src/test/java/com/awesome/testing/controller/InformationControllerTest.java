@@ -1,4 +1,4 @@
-package com.awesome.testing;
+package com.awesome.testing.controller;
 
 import com.awesome.testing.service.InformationService;
 import com.awesome.testing.state.ContractState;
@@ -158,7 +158,12 @@ public class InformationControllerTest {
         mockMvc.perform(put("/information/" + existingId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonString))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.name").value(name))
+                .andExpect(jsonPath("$.salary").value(salary))
+                .andExpect(jsonPath("$.nationality").value(nationality));
 
         assertThat(informationService.getAllInformation()).hasSize(2);
 
@@ -198,7 +203,12 @@ public class InformationControllerTest {
         mockMvc.perform(patch("/information/" + existingId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonString))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.name").value(name))
+                .andExpect(jsonPath("$.salary").value(salary))
+                .andExpect(jsonPath("$.nationality").value(RONALDO_DB_ENTRY.getNationality()));
 
         assertThat(informationService.getAllInformation()).hasSize(2);
 
