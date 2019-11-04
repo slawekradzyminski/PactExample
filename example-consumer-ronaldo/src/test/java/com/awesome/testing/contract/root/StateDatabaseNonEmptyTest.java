@@ -38,8 +38,8 @@ public class StateDatabaseNonEmptyTest extends AbstractPactTest {
 
     @Override
     protected void runTest(MockServer mockServer, PactTestExecutionContext context) {
-        providerService.overrideBackendUrl(mockServer.getUrl());
-        Information information = providerService.getResponseForName(RONALDO).getBody();
+        informationClient.overrideBackendUrl(mockServer.getUrl());
+        Information information = informationClient.getResponseForName(RONALDO).getBody();
         assertThat(information).isNotNull();
         assertThat(information.getNationality()).isEqualTo("Portugal");
         assertThat(information.getName()).isEqualTo(RONALDO);

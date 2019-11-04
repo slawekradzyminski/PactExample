@@ -1,6 +1,6 @@
 package com.awesome.testing.wiremock;
 
-import com.awesome.testing.service.ProviderService;
+import com.awesome.testing.service.InformationClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Before;
@@ -31,14 +31,14 @@ public abstract class AbstractWiremock {
     protected ObjectMapper objectMapper;
 
     @Autowired
-    protected ProviderService providerService;
+    protected InformationClient informationClient;
 
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().dynamicPort());
 
     @Before
     public void setUp() {
-        providerService.overrideBackendUrl("http://localhost:" + wireMockRule.port());
+        informationClient.overrideBackendUrl("http://localhost:" + wireMockRule.port());
     }
 
 }

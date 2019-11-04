@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class ProviderService {
+public class InformationClient {
 
     private final RestTemplate restTemplate;
 
     @Value("${backend.url}")
     private String backendUrl;
 
-    public ProviderService(RestTemplate restTemplate) {
+    public InformationClient(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 

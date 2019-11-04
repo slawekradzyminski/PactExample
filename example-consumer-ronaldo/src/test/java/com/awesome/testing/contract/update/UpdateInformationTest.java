@@ -47,9 +47,9 @@ public class UpdateInformationTest extends AbstractPactTest {
         IdNotAwareInformation information =
                 new IdNotAwareInformation(SAMPLE_NAME, SAMPLE_NATIONALITY, SAMPLE_SALARY);
 
-        providerService.overrideBackendUrl(mockServer.getUrl());
+        informationClient.overrideBackendUrl(mockServer.getUrl());
         Information informationAdded =
-                providerService.updateViaPut(information, SAMPLE_ID).getBody();
+                informationClient.updateViaPut(information, SAMPLE_ID).getBody();
 
         assertThat(informationAdded.getId()).isEqualTo(SAMPLE_ID);
         assertThat(informationAdded.getName()).isEqualTo(SAMPLE_NAME);

@@ -29,8 +29,8 @@ public class StateDatabaseEmptyTest extends AbstractPactTest {
 
     @Override
     protected void runTest(MockServer mockServer, PactTestExecutionContext context) {
-        providerService.overrideBackendUrl(mockServer.getUrl());
-        ResponseEntity<Information> responseForName = providerService.getResponseForName(RONALDO);
+        informationClient.overrideBackendUrl(mockServer.getUrl());
+        ResponseEntity<Information> responseForName = informationClient.getResponseForName(RONALDO);
         assertThat(responseForName.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 }

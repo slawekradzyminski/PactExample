@@ -47,8 +47,8 @@ public class CreateInformationTest extends AbstractPactTest {
         IdNotAwareInformation information = new IdNotAwareInformation
                 (SAMPLE_NAME, SAMPLE_NATIONALITY, SAMPLE_SALARY);
 
-        providerService.overrideBackendUrl(mockServer.getUrl());
-        Information informationAdded = providerService.add(information).getBody();
+        informationClient.overrideBackendUrl(mockServer.getUrl());
+        Information informationAdded = informationClient.add(information).getBody();
 
         assertThat(informationAdded.getName()).isEqualTo(SAMPLE_NAME);
         assertThat(informationAdded.getNationality()).isEqualTo(SAMPLE_NATIONALITY);

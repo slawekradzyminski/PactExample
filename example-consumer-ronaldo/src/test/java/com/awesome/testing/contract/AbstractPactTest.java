@@ -1,7 +1,7 @@
 package com.awesome.testing.contract;
 
 import au.com.dius.pact.consumer.junit.ConsumerPactTest;
-import com.awesome.testing.service.ProviderService;
+import com.awesome.testing.service.InformationClient;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,7 +24,7 @@ public abstract class AbstractPactTest extends ConsumerPactTest {
     protected static final int SAMPLE_SALARY = 4444;
 
     @Autowired
-    protected ProviderService providerService;
+    protected InformationClient informationClient;
 
     @Override
     protected String providerName() {
