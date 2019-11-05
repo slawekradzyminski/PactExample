@@ -1,6 +1,7 @@
 package com.awesome.testing.wiremock;
 
 import com.awesome.testing.Information;
+import com.awesome.testing.ProviderService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
@@ -40,8 +41,16 @@ public class WiremockUnitTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private ProviderService providerService;
+
     @Rule
-    public WireMockRule wireMockRule = new WireMockRule(WireMockConfiguration.wireMockConfig().port(8888));
+    public WireMockRule wireMockRule = new WireMockRule(WireMockConfiguration.wireMockConfig().dynamicPort());
+
+    @Before
+    public void setUp() {
+        providerService.overrideBackendUrl("http://localhost:" + wireMockRule.port());
+    }
 
     @Before
     public void prepareBackend() throws JsonProcessingException {

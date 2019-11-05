@@ -50,6 +50,7 @@ public class CreateInformationTest extends AbstractPactTest {
         informationClient.overrideBackendUrl(mockServer.getUrl());
         Information informationAdded = informationClient.add(information).getBody();
 
+        assertThat(informationAdded.getId()).isGreaterThan(0);
         assertThat(informationAdded.getName()).isEqualTo(SAMPLE_NAME);
         assertThat(informationAdded.getNationality()).isEqualTo(SAMPLE_NATIONALITY);
         assertThat(informationAdded.getSalary()).isEqualTo(SAMPLE_SALARY);

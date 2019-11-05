@@ -85,6 +85,7 @@ project(':example-consumer-messi') {
             version = gitBranch + '-' + gitAbbRevision
             pactDirectory = "${buildDir}/pacts"
             pactBrokerUrl = pactUrl
+            tags = [gitBranch]
         }
     }
 }
@@ -95,6 +96,7 @@ project(':example-consumer-ronaldo') {
             version = gitBranch + '-' + gitAbbRevision
             pactDirectory = "${buildDir}/pacts"
             pactBrokerUrl = pactUrl
+            tags = [gitBranch]
         }
     }
 }
@@ -128,6 +130,7 @@ project(':example-provider') {
         serviceProviders {
             ExampleProvider {
                 providerVersion = { gitBranch + '-' + gitAbbRevision }
+                providerTag = { gitBranch }
                 protocol = 'http'
                 host = 'localhost'
                 port = 8080
