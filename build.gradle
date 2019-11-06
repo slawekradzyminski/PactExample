@@ -141,7 +141,7 @@ project(':example-provider') {
                 // See more on https://github.com/DiUS/pact-jvm/tree/master/provider/pact-jvm-provider-gradle
                 // Should be fixed in later releases
                 if (requestVerification) {
-                    hasPactsFromPactBroker(pactUrl)
+                    hasPactsFromPactBrokerWithTag(pactUrl, "master")
                 }
                 terminateProviderTask = stopProvider
             }

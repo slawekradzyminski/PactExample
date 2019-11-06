@@ -15,7 +15,7 @@ import com.awesome.testing.state.ContractState;
 
 @RunWith(SpringRestPactRunner.class)
 @Provider("ExampleProvider")
-@PactBroker(host = "localhost", port = "9292")
+@PactBroker(host = "localhost", port = "9292", tags = {"master"})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class ProviderContractTest {
 
