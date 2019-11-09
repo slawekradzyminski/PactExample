@@ -19,10 +19,10 @@ fi
 if [[ $? -ne 0 ]] ; then
     exit 1
 fi
-./gradlew :example-consumer-messi:pactPublish
-if [[ $? -ne 0 ]] ; then
-    exit 1
-fi
+#./gradlew :example-consumer-messi:pactPublish
+#if [[ $? -ne 0 ]] ; then
+#    exit 1
+#fi
 ./gradlew :example-provider:build
 if [[ $? -ne 0 ]] ; then
     exit 1

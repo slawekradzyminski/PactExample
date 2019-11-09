@@ -37,7 +37,23 @@ ext {
 }
 
 task setupPactBroker(type: Exec) {
+    commandLine "chmod +x pactbroker/runPactBroker.sh"
     commandLine "pactbroker/runPactBroker.sh"
+}
+
+task setupMessageService(type: Exec) {
+    commandLine "chmod +x amqp/rabbit.sh"
+    commandLine "amqp/rabbit.sh"
+}
+
+task verifyAll(type: Exec) {
+    commandLine "chmod +x ./verifyAll.sh"
+    commandLine "./verifyAll.sh"
+}
+
+task killDockers(type: Exec) {
+    commandLine "chmod +x ./killDockers.sh"
+    commandLine "./killDockers.sh"
 }
 
 task createProvider {
@@ -62,6 +78,7 @@ subprojects {
 
         compile 'org.springframework.boot:spring-boot-starter-web'
         compile 'org.springframework.boot:spring-boot-devtools'
+        compile 'org.springframework.boot:spring-boot-starter-amqp'
         compile 'org.springframework.boot:spring-boot-starter-jetty'
         compile 'org.springframework.boot:spring-boot-starter-actuator'
         compile 'org.json:json:20190722'
