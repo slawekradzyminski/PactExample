@@ -2,6 +2,7 @@
 
 ## Theory
 - [Testing micro services - the sane way](https://medium.com/@copyconstruct/testing-microservices-the-sane-way-9bb31d158c16)
+- [Fowler - Testing Strategies in Microservice Architecture](https://martinfowler.com/articles/microservice-testing/?fbclid=IwAR3X3G8RAWL1W6SUTjXc3yPpfHZ3iYq1rgXcLRKctXfsyxs_8JQV9J7Dbd4)
 - [Fowler - Contract test](https://www.martinfowler.com/bliki/ContractTest.html)
 - [Fowler - customer driven contract tests](https://martinfowler.com/articles/consumerDrivenContracts.html)
 - [7 reasons for consumer driven contracts](https://reflectoring.io/7-reasons-for-consumer-driven-contracts/)
